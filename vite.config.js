@@ -2,6 +2,7 @@ import autoprefixer from 'autoprefixer';
 import viteImagemin from 'vite-plugin-imagemin'
 
 export default {
+    base: '/demo-wave-hover-effect/',
     server: {
         open: true,
     },

@@ -1,0 +1,124 @@
+:root{
+  --index: calc(1vw + 1dvh);
+  --transition: cubic-bezier(.1, .7, 0, 1);
+}
+
+.wave{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+}
+
+.wave__items{
+  display: flex;
+  gap: .4rem;
+  perspective: calc(var(--index) * 35);
+}
+
+.wave__item{
+  // aspect-ratio 3 / 12
+  width: calc(var(--index) * 3);
+  height: calc(var(--index) * 12);
+
+  background-color: #222;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+
+  filter: grayscale(1) brightness(.5);
+  transition: transform 1.25s var(--transition), filter 3s var(--transition), width 1.25s var(--transition);
+  will-change: transform, filter, width;
+
+  // заглушки, чтоб когда курсор попадал между картинками, ховер не сбрасывался
+  position: relative;
+  &:before,
+  &:after{
+    content: '';
+    position: absolute;
+    //background-color: #fff;
+    height: 100%;
+    width: var(--index);
+  }
+  &:before{
+    left: calc(var(--index) * -1);
+  }
+  &:after{
+    right: calc(var(--index) * -1);
+  }
+
+  // активный эл-т (по tabindex)
+  // увеличивается, не гаснет, выше других и не вращается
+  &:active,
+  &:focus{
+    width: 28vw;
+    filter: inherit;
+    z-index: 100;
+    transform: translateZ(calc(var(--index) * 10));
+    margin: .45vw;
+  }
+}
+
+// активный эл-т - центральный
+// 7-й эл-т
+.wave__item:hover{
+  filter: inherit;
+  transform: translateZ(calc(var(--index) * 10));
+}
+
+// Элементы СПРАВА от центрального, участвующие в волне:
+
+// 8-й эл-т
+.wave__item:hover + .wave__item{
+  filter: inherit;
+  transform: translateZ(calc(var(--index) * 8.5)) rotateY(35deg); // в полтора разра меньше центрального по размерам и чуть поворачиваем по Y
+  z-index: -1;
+}
+
+// 9-й эл-т
+.wave__item:hover + .wave__item + .wave__item{
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * 5.6)) rotateY(40deg);
+  z-index: -2;
+}
+
+// 10-й эл-т
+.wave__item:hover + .wave__item + .wave__item + .wave__item{
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * 2.4)) rotateY(30deg);
+  z-index: -3;
+}
+
+// 11-й эл-т
+.wave__item:hover + .wave__item + .wave__item + .wave__item + .wave__item{
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * .6)) rotateY(14deg);
+  z-index: -4;
+}
+
+// Элементы СЛЕВА от центрального, участвующие в волне:
+
+// 6-й эл-т
+.wave__item:has(+ :hover){
+  filter: inherit;
+  transform: translateZ(calc(var(--index) * 8.5)) rotateY(-35deg);
+}
+
+// 5-й эл-т
+.wave__item:has(+ .wave__item + :hover){
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * 5.6)) rotateY(-40deg);
+}
+
+// 4-й эл-т
+.wave__item:has(+ .wave__item + .wave__item + :hover){
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * 2.4)) rotateY(-30deg);
+}
+
+// 11-й эл-т
+.wave__item:has(+ .wave__item + .wave__item + .wave__item + :hover){
+   filter: inherit;
+  transform: translateZ(calc(var(--index) * .6)) rotateY(-14deg);
+  z-index: -4;
+}

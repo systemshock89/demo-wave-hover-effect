@@ -1,0 +1,21 @@
+{
+  "name": "demo-wave-hover-effect",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "imagemin-webp": "^8.0.0",
+    "sass": "^1.76.0",
+    "vite": "^5.2.11",
+    "vite-plugin-imagemin": "^0.6.1"
+  },
+  "dependencies": {
+    "modern-normalize": "^2.0.0"
+  }
+}
